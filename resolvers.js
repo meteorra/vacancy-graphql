@@ -10,7 +10,8 @@ module.exports = {
     }
   },
   Mutation: {
-    createVacancy (parent, args) {
+    createVacancy (parent, args, { user }) {
+      if (!user) throw new Error('You must be authorized to perform this action!')
       return Vacancy.create(args)
     }
   }
