@@ -1,0 +1,14 @@
+{
+  "name": "vacancy-graphql",
+  "version": "1.0.0",
+  "description": "Vacancy GraphQL Service",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "graphql"
+  ],
+  "author": "Eugene Lemesh",
+  "license": "ISC"
+}
