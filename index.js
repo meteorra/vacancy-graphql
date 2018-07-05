@@ -1,19 +1,26 @@
 const express = require('express')
 const bodyParser = require('body-parser')
+const cookieParser = require('cookie-parser')
+const session = require('express-session')
 const { graphqlExpress, graphiqlExpress } = require('apollo-server-express')
 const { makeExecutableSchema } = require('graphql-tools')
-const jwt = require('express-jwt')
 const typeDefs = require('./typeDefs')
 const resolvers = require('./resolvers')
+const authController = require('./controllers/authController')
 
-const authMiddleware = jwt({
-  secret: 'f%a64TA_3bA',
-  credentialsRequired: false
-})
 const schema = makeExecutableSchema({typeDefs, resolvers})
 
 const app = express()
-app.use(authMiddleware)
-app.use('/graphql', bodyParser.json(), graphqlExpress(req => ({ schema, context: { user: req.user } })))
+app.use(bodyParser.urlencoded({
+  extended: true
+}))
+app.use(bodyParser.json())
+app.use(cookieParser())
+app.use(session({ secret: 'some_sevret#key' }))
+require('./auth')(app)
+app.post('/login', authController.login)
+app.get('/logout', authController.logout)
+app.get('/isAuthenticated', authController.isAuthenticated)
+app.use('/graphql', graphqlExpress(req => ({ schema, context: { user: req.user } })))
 app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }))
 app.listen(4000, () => console.log('Now browse to localhost:4000/graphiql'))
