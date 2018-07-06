@@ -13,6 +13,8 @@ import ebayRouter from './routers/ebayRouter'
 
 const schema = makeExecutableSchema({typeDefs, resolvers})
 
+const port = process.env.PORT || 9000
+
 const app: Application = express()
 app.use(cors())
 app.use(bodyParser.urlencoded({
@@ -28,4 +30,4 @@ app.get('/isAuthenticated', authController.isAuthenticated)
 app.use('/ebay', ebayRouter)
 app.use('/graphql', graphqlExpress((req: any) => ({ schema, context: { user: req.user } })))
 app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }))
-app.listen(4000, () => console.log('Now browse to localhost:4000/graphiql'))
+app.listen(port, () => console.log(`Server is running on port ${port}`))
