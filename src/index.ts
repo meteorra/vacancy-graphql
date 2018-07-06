@@ -2,6 +2,7 @@ import express, { Application } from 'express'
 import bodyParser from 'body-parser'
 import cookieParser from 'cookie-parser'
 import session from 'express-session'
+import cors from 'cors'
 import { graphqlExpress, graphiqlExpress } from 'apollo-server-express'
 import { makeExecutableSchema } from 'graphql-tools'
 import typeDefs from './typeDefs'
@@ -13,6 +14,7 @@ import ebayRouter from './routers/ebayRouter'
 const schema = makeExecutableSchema({typeDefs, resolvers})
 
 const app: Application = express()
+app.use(cors())
 app.use(bodyParser.urlencoded({
   extended: true
 }))
