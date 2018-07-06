@@ -8,6 +8,7 @@ import typeDefs from './typeDefs'
 import resolvers from './resolvers'
 import auth from './auth'
 import * as authController from './controllers/authController'
+import ebayRouter from './routers/ebayRouter'
 
 const schema = makeExecutableSchema({typeDefs, resolvers})
 
@@ -22,6 +23,7 @@ auth(app)
 app.post('/login', authController.login)
 app.get('/logout', authController.logout)
 app.get('/isAuthenticated', authController.isAuthenticated)
+app.use('/ebay', ebayRouter)
 app.use('/graphql', graphqlExpress((req: any) => ({ schema, context: { user: req.user } })))
 app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }))
 app.listen(4000, () => console.log('Now browse to localhost:4000/graphiql'))

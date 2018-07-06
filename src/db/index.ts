@@ -28,6 +28,11 @@ export default {
   findAllByModel (modelName: string): Array<{ id: number }> {
     return getData()[modelName] || []
   },
+  findOne (modelName: string, id: number): object {
+    let result = (getData()[modelName] || []).find((el: { id: number }) => el.id === +id)
+    if (!result) throw new Error(`Data NOT FOUNT on type "${modelName}" with id = ${id}`)
+    return result
+  },
   addByModel (modelName: string, newRec: any) {
     let modelData = getData()[modelName] || []
     modelData.push(newRec)

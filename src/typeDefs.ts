@@ -17,7 +17,7 @@ type Vacancy {
 
 type Query {
   allVacancies: [Vacancy!]!
-  getVacancyById(id: Int!): Vacancy!
+  getVacancyById(id: ID!): Vacancy!
 }
 
 type Mutation {
