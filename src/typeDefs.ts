@@ -1,4 +1,4 @@
-module.exports = [`
+export default [`
 enum JobType {
   PERMANENT
   SEASONAL
@@ -9,7 +9,7 @@ type Vacancy {
   id: Int!
   name: String!
   company: String!
-  salary: Int
+  salary: Int!
   location: String!
   jobType: JobType!
   description: String
@@ -17,7 +17,7 @@ type Vacancy {
 
 type Query {
   allVacancies: [Vacancy!]!
-  getVacancyById(id: Int!): Vacancy!
+  getVacancyById(id: ID!): Vacancy!
 }
 
 type Mutation {
