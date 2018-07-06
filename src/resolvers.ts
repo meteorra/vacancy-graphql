@@ -3,7 +3,7 @@ import fetch from 'node-fetch'
 
 export default {
   Query: {
-    getEbayAutocomplete (parent: any, args: any) {
+    ebayAutocomplete (parent: any, args: any) {
       return fetch(`https://haitao.ebay.com/data/autocomplete?keyword=${args.keyword}&site=none`)
         .then(response => response.json())
         .then(data => {
@@ -11,7 +11,7 @@ export default {
         })
         .catch()
     },
-    getEbayProduct (parent: any, args: any) {
+    legacyListingItem (parent: any, args: any) {
       return fetch(`https://haitao.ebay.com/itm/${args.id}`, {
         headers: {
           'Content-Type': 'application/json',
