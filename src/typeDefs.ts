@@ -1,20 +1,4 @@
 export default [`
-enum JobType {
-  PERMANENT
-  SEASONAL
-  PART_TIME
-}
-
-type Vacancy {
-  id: Int!
-  name: String!
-  company: String!
-  salary: Int!
-  location: String!
-  jobType: JobType!
-  description: String
-}
-
 type EbayAutocomplete {
   prefix: String!
   brands: [String]!
@@ -30,17 +14,44 @@ type EbayAutocompleteResult {
   index: Int!
 }
 
-type Query {
-  allVacancies: [Vacancy!]!
-  getVacancyById(id: ID!): Vacancy!
-  getEbayAutocomplete(keyword: String!): EbayAutocomplete
+type ItemDetails {
+  categoryId: Int!
+  id: String!
+  brand: String
+  title: ItemLang!
+  description: ItemLang!
+  condition: ItemLang!
+  images: [ItemImage!]!
+  price: ItemPrice!
 }
 
-type Mutation {
-  createVacancy(name: String!, company: String!, salary: Int, location: String!, jobType: JobType!, description: String): Int!
+type ItemLang {
+  original: String!
+  toggled: String!
+}
+
+type ItemImage {
+  thumb: String!
+  preview: String!
+  full: String!
+}
+
+type ItemPrice {
+  price: Float!
+  convertedPrice: Float!
+  strikeThroughPrice: Float
+  strikeThroughConvertedPrice: Float
+  displayedPrice: String!
+  displayedConvertedPrice: String!
+  displayedStrikeThroughPrice: String
+  displayedStrikeThroughConvertedPrice: String
+}
+
+type Query {
+  getEbayAutocomplete(keyword: String!): EbayAutocomplete
+  getEbayProduct(id: String!): ItemDetails
 }
 
 schema {
   query: Query
-  mutation: Mutation
 }`]
