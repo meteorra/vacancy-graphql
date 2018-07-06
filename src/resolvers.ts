@@ -1,4 +1,5 @@
 import Vacancy from './models/Vacancy'
+import fetch from 'node-fetch'
 
 export default {
   Query: {
@@ -7,6 +8,14 @@ export default {
     },
     getVacancyById (parent: any, args: any) {
       return Vacancy.findOne(args.id)
+    },
+    getEbayAutocomplete (parent: any, args: any) {
+      return fetch(`https://haitao.ebay.com/data/autocomplete?keyword=${args.keyword}&site=none`)
+        .then(response => response.json())
+        .then(data => {
+          return data
+        })
+        .catch()
     }
   },
   Mutation: {
